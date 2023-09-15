@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.optimize import minimize
+from scipy.optimize import minimize, Bounds
 
 
 def f(x, *args):
@@ -10,8 +10,8 @@ def g(x, *args):
     return abs(f(x, *args))
 
 
-def find_min(fun, a, b):
-    return minimize(fun, args=(a, b), x0=np.array([0]))
+def find_min(fun, a, b, left=-10e9, right=10e9):
+    return minimize(fun, args=(a, b), x0=np.array([0]), method='Nelder-Mead', bounds=Bounds([left], [right]))
 
 
 A, B = map(int, input().split(" "))
